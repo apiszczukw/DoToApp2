@@ -1,12 +1,19 @@
-﻿namespace DoToApp2
+﻿using DoToApp2.Models;
+using System.Collections.ObjectModel;
+
+namespace DoToApp2
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        public ObservableCollection<ToDoTask> TasksList => ToDoTaskManager.Tasks;
 
         public MainPage()
         {
             InitializeComponent();
+
+            ToDoTaskManager.AddTestData();
+
+            BindingContext = this;
         }
 
     }

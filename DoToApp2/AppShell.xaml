@@ -5,11 +5,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DoToApp2"
     Shell.FlyoutBehavior="Flyout"
-    Title="DoToApp2">
+    Title="DoToApp">
 
     <ShellContent
-        Title="Home"
+        Title="Lista zadań"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    
+    <ShellContent
+        Title="Dodawanie nowego zadania"
+        ContentTemplate="{DataTemplate local:AddTaskPage}"
+        Route="AddTaskPage" />
 
 </Shell>
