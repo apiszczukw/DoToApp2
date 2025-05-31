@@ -14,5 +14,8 @@ public partial class AddTaskPage : ContentPage
 		ToDoTaskManager.AddNewTask(TaskName.Text, TaskDesc.Text);
 
 		await DisplayAlert("Sukces", "Zadanie dodano!", "OK");
+
+		await Shell.Current.GoToAsync("//MainPage");
+		//Navigation.PushAsync(new MainPage());
     }
 }

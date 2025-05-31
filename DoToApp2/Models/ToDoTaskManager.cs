@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DoToApp2.Helpers;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoToApp2.Models
 {
@@ -11,9 +7,20 @@ namespace DoToApp2.Models
     {
         public static ObservableCollection<ToDoTask> Tasks;
 
+        public static void SaveTasks()
+        {
+            XmlHelper.SerializeToXml(Tasks, Files.TasksFilePath);
+        }
+
+        public static void LoadTasks()
+        {
+            Tasks = XmlHelper.DeserializeToXml<ObservableCollection<ToDoTask>>(Files.TasksFilePath);
+        }
+
         public static void AddNewTask(string name, string desc)
         {
-            if (Tasks == null) {
+            if (Tasks == null)
+            {
                 Tasks = new ObservableCollection<ToDoTask>()
                 {
                     new ToDoTask() {
@@ -32,43 +39,55 @@ namespace DoToApp2.Models
                     Desc = desc
                 });
             }
+
+            SaveTasks();
         }
 
         public static void AddTestData()
         {
-            Tasks = new ObservableCollection<ToDoTask>()
+            if (File.Exists(Files.TasksFilePath)) 
+                return;
+
+
+            if (Tasks == null)
             {
-                new ToDoTask()
-                {
-                    Id = 1,
-                    Name = "Zrobić zakupy",
-                    Desc = "Kupić mleko, chleb, jajka i warzywa na obiad"
-                },
-                new ToDoTask()
-                {
-                    Id = 2,
-                    Name = "Przygotować prezentację",
-                    Desc = "Skończyć slajdy do prezentacji o interfejsach mózg-komputer"
-                },
-                new ToDoTask()
-                {
-                    Id = 3,
-                    Name = "Odpisać na maile",
-                    Desc = "Odpowiedzieć studentom na pytania dotyczące projektu zaliczeniowego"
-                },
-                new ToDoTask()
-                {
-                    Id = 4,
-                    Name = "Wyjść na spacer z kotem",
-                    Desc = "Zabrać Narkana na spacer z koszykiem rowerowym"
-                },
-                new ToDoTask()
-                {
-                    Id = 5,
-                    Name = "Zrobić backup danych",
-                    Desc = "Utworzyć kopię zapasową folderu z projektami do chmury"
-                }
-            };
+                Tasks = new ObservableCollection<ToDoTask>()
+                    {
+                        new ToDoTask()
+                        {
+                            Id = 1,
+                            Name = "Zrobić zakupy",
+                            Desc = "Kupić mleko, chleb, jajka i warzywa na obiad"
+                        },
+                        new ToDoTask()
+                        {
+                            Id = 2,
+                            Name = "Przygotować prezentację",
+                            Desc = "Skończyć slajdy do prezentacji o interfejsach mózg-komputer"
+                        },
+                        new ToDoTask()
+                        {
+                            Id = 3,
+                            Name = "Odpisać na maile",
+                            Desc = "Odpowiedzieć studentom na pytania dotyczące projektu zaliczeniowego"
+                        },
+                        new ToDoTask()
+                        {
+                            Id = 4,
+                            Name = "Wyjść na spacer z kotem",
+                            Desc = "Zabrać Narkana na spacer z koszykiem rowerowym"
+                        },
+                        new ToDoTask()
+                        {
+                            Id = 5,
+                            Name = "Zrobić backup danych",
+                            Desc = "Utworzyć kopię zapasową folderu z projektami do chmury"
+                        }
+                    };
+
+            }
+
+            SaveTasks();
         }
     }
 }

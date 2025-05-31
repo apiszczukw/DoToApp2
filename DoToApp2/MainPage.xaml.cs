@@ -13,9 +13,24 @@ namespace DoToApp2
 
             ToDoTaskManager.AddTestData();
 
+            ToDoTaskManager.LoadTasks();
+
             BindingContext = this;
         }
 
+        private void Done_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            ToDoTaskManager.SaveTasks();
+        }
+
+        private void DeleteBtn_Clicked(object sender, EventArgs e)
+        {
+            if(sender is Button kosz && kosz.BindingContext is ToDoTask naszTask && TasksList.Contains(naszTask))
+            {
+                TasksList.Remove(naszTask);
+                ToDoTaskManager.SaveTasks();
+            }
+        }
     }
 
 }
